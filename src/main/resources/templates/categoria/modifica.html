@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Nuevo Categoria</title>
+        <meta charset="UTF-8"> 
+        <link href="/css/menu.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <div class="contenido">
+        <h2>Datos de la categoria</h2>
+        <br>
+        <a th:href="@{/categoria/listado}">Regresar</a>
+        <br>
+        <br>
+        <form th:action="@{/categoria/guardar}"
+              method="post"
+              th:object="${categoria}">
+            <input type="hidden" name="idCategoria" th:field="*{idCategoria}" />
+            <label for="descripcion">Descripcion</label>
+            <input type="text" name="descripcion" th:field="*{descripcion}">
+        <label for="activo">Activo:</label>
+            <input type="checkbox" name="activo" th:field="*{activo}">
+        <br>
+        <input type="submit" name="guardar" value="Guardar Registro" />
+        </form>  
+    </div>
+        <footer th:replace="layout/plantilla :: footer"/>
+    </body>
+</html>

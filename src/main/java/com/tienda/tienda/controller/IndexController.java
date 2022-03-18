@@ -6,6 +6,7 @@ package com.tienda.tienda.controller;
  */
 
 import com.tienda.tienda.domain.Cliente;
+import com.tienda.tienda.service.ArticuloService;
 import com.tienda.tienda.service.ClienteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,48 +23,16 @@ public class IndexController {
     
     
     @Autowired
-    private ClienteService clienteService;
+    private ArticuloService articuloService;
     
-    @RequestMapping("/") //el profe lo puso como getmapping
+    @GetMapping("/") //el profe lo puso como getmapping
     public String inicio(Model model) {
         log.info("Ahora se usa arquitectura MVC");
         
-        var mensaje = "Mensaje desde el controlador";
-        model.addAttribute("TextoSaludo", mensaje);
-        
-        Cliente cliente = new Cliente("Javier", "Murillo Víquez", "jemuvic@hotmail.com", "8506-5939");
-        model.addAttribute(cliente);
-        
-        Cliente cliente2 = new Cliente("Monica", "Montero Soto", "monmon@hotmail.com", "8867-7359");
-        var clientes = Arrays.asList(cliente, cliente2);
-        model.addAttribute("clientes",clientes);
-     
-        var clientesDB = clienteService.getClientes();
-        model.addAttribute("clientesDB",clientesDB);
-        
+        var articulos = articuloService.getArticulos(true);
+        model.addAttribute("articulos", articulos);
+          
         return "index";
     }
 
- @GetMapping("/nuevoCliente")
- public String nuevoCliente(Cliente cliente) {
-   return "modificarCliente";
-   
- }
- @PostMapping("/guardarcliente")
- public String guardarCliente(Cliente cliente){
-     clienteService.save(cliente);
-     return "redirect:/";
- }
-    @GetMapping("/modificarCliente/{idcliente}")
-    public String modificarCliente(Cliente cliente, Model model) {
-       var respuesta = clienteService.getCliente(cliente);
-       model.addAttribute("cliente", respuesta);
-       return "modificarCliente";
-            }
-    
-    @GetMapping("/eliminarCliente/{idcliente}")
-     public String eliminarCliente(Cliente cliente) {
-    clienteService.delete(cliente);
-    return "redirect:/";
-}
 }

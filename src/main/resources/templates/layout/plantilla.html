@@ -7,15 +7,24 @@
         
     </head>
     <body>
-        <header th:fragment="header">
-            <h1 style="color:blueviolet;">TechShop</h1>
-            <br>
-            <a th:href="@{/}">Home</a>
-            <br>
-            <br>
-        </header>
+        <header th:fragment="header" class="header"> 
+            <nav class="nav">   
+                <a href="@{/}" class="nav-link logo">Tech shop</a>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item">
+                        <a class="nav-menu-link nav-link" th:href="@{/cliente/listado}">Clientes</a>
+                    </li>
+                    <li class="nav-menu-item">
+                        <a class="nav-menu-link nav-link" th:href="@{/articulo/listado}">Articulos</a>
+                    </li>
+                     <li class="nav-menu-item">
+                        <a class="nav-menu-link nav-link" th:href="@{/categoria/listado}">Categorias</a>
+                    </li>
+                   </ul>
+                </nav>
+             </header>
         
-        <footer th:fragment="footer">
+        <footer th:fragment="footer" class="footer">
             &COPY; Derechos Reservados 2022
         </footer>         
     </body>
