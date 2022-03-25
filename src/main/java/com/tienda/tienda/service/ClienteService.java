@@ -15,4 +15,6 @@ public interface ClienteService {
     
     public Cliente getCliente(Cliente cliente);
     
+    /*public List<Cliente> findByCorreo(String correo);*/
+    
 }

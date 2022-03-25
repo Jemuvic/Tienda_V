@@ -8,24 +8,26 @@
     <body>
         <header th:replace="layout/plantilla :: header"></header>
         <div class="contenido">
-            <h2>Nuestros articulos</h2>
+            <h2 th:text="#{index.titulo}">Nuestros articulos</h2>
             <br>
             <div th:if="${articulos != null and !articulos.empty}">
                 <table border="1">
                     <tr>
-                        <td>Descripción</td>
-                        <td>Precio</td>
+                        <td th:text="#{articulo.descripcion}">Descripción</td>
+                        <td th:text="#{articulo.precio}">Precio</td>
+                        <td th:text="#{articulo.comprar}">Comprar</td>
                     </tr>
                     <tr th:each="item : ${articulos}">
                         <td th:text="${item.descripcion}"></td>
                         <td th:text="${#numbers.formatDecimal(item.precio,3,2)}" style="text-align: right;"></td>
-                        <td><a th:href="@{/carrito/agregar} + ${item.idArticulo}">Agregar</a></td>
+                        <td><a th:href="@{/carrito/agregar} + ${item.idArticulo}"
+                               th:text="#{accion.agregar}">Agregar</a></td>
                     </tr>
                 </table>
             </div>
 
             <div th:if="${articulos == null or articulos.empty}">
-                no hay articulos para mostrar
+                <p th:text="#{articulo.no_mostrar}"> no hay articulos para mostrar </p>
             </div>
         </div>
         <footer th:replace="layout/plantilla :: footer"></footer>

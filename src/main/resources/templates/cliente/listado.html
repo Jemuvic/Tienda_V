@@ -8,21 +8,21 @@
     <body>
         <header th:replace="layout/plantilla :: header"></header>     
         <div class="contenido">
-        <h2>Listado de clientes</h2>
+        <h2 th:text="#{cliente.titulo}">Listado de clientes</h2>
         <br>
-        <a th:href="@{/cliente/nuevo}">Nuevo Cliente</a>
+        <a th:href="@{/cliente/nuevo}" th:text="#{cliente.nuevo}">Nuevo Cliente</a>
         <br>
         <br>
         <div th:if="${clientes != null and !clientes.empty}">
         <table border="1">
             <tr>
-                <td>Nombre</td>
-                <td>Apellidos</td>
-                <td>Correo</td>
-                <td>Telefono</td>
-                <td>Límite</td>
-                <td>Modificar</td>
-                <td>Eliminar</td>
+                <td th:text="#{cliente.nombre}">Nombre</td>
+                <td th:text="#{cliente.apellidos}">Apellidos</td>
+                <td th:text="#{cliente.correo}">Correo</td>
+                <td th:text="#{cliente.telefono}">Telefono</td>
+                <td th:text="#{cliente.limite}">Límite</td>
+                <td th:text="#{accion.actualizar}">Modificar</td>
+                <td th:text="#{accion.eliminar}">Eliminar</td>
                 
             </tr>
             <tr th:each="item : ${clientes}">
@@ -31,14 +31,16 @@
                 <td th:text="${item.correo}"></td>
                 <td th:text="${item.telefono}"></td>
                 <td th:text="${#numbers.formatDecimal(item.credito.limite,3,2)}"></td>
-                <td><a th:href="@{/cliente/modificar/} + ${item.idCliente}">Modificar</a></td>
-                <td><a th:href="@{/cliente/eliminar/} + ${item.idCliente}">Eliminar</a></td>
+                <td><a th:href="@{/cliente/modificar/} + ${item.idCliente}"
+                       th:text="#{accion.actualizar}">Modificar</a></td>
+                <td><a th:href="@{/cliente/eliminar/} + ${item.idCliente}"
+                       th:text="#{accion.eliminar}">Eliminar</a></td>
             </tr>
         </table>
         </div>
         
         <div th:if="${clientes == null or clientes.empty}">
-            No tenemos clientes para mostrar
+            <p th:text="#{cliente.no_mostrar}">No tenemos clientes para mostrar</p>
         </div>
         </div>
         <footer th:replace="layout/plantilla :: footer"></footer>

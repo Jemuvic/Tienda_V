@@ -25,7 +25,7 @@ public class IndexController {
     @Autowired
     private ArticuloService articuloService;
     
-    @GetMapping("/") //el profe lo puso como getmapping
+    @GetMapping("/") 
     public String inicio(Model model) {
         log.info("Ahora se usa arquitectura MVC");
         
