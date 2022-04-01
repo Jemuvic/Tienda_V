@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
@@ -10,7 +11,7 @@
         <header th:fragment="header" class="header"> 
             <nav class="nav">   
                 <a th:href="@{/}" class="nav-link logo">Tech shop</a>
-                <ul class="nav-menu">
+                <ul class="nav-menu" sec:authorize="hasRole('ROLE_VENDEDOR')">
                     <li class="nav-menu-item">
                         <a class="nav-menu-link nav-link" th:href="@{/cliente/listado}"
                            th:text="#{plantilla.clientes}">Clientes</a>
@@ -23,15 +24,26 @@
                         <a class="nav-menu-link nav-link" th:href="@{/categoria/listado}"
                            th:text="#{plantilla.categorias}">Categorias</a>
                     </li>
+                     <li class="nav-menu-item">
+                        <a class="nav-menu-link nav-link" th:href="@{/admin/listado}"
+                           th:text="#{plantilla.admin}" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
+                    </li>
                    </ul>
                 </nav>
              </header>
         
         <footer th:fragment="footer" class="footer">
-            <p>&COPY; [[#{plantilla.derechos}]]
+            <div>&COPY; [[#{plantilla.derechos}]]
                 <a th:href="@{/(lang=es)}">ES</a>
                 <a th:href="@{/(lang=en)}">EN</a>
-                    </p>
+                
+                User: <span sec:authentication="name">xx</span>
+                Roles: <span sec:authentication="principal.authorities">xx</span>
+                
+                <form method="POST" th:action="@{/logout}" style="display: inline">
+                    <a href="#" onclick="this.parentNode.submit();">Logout</a>
+                </form>
+                    </div>
         </footer>         
     </body>
 </html>
